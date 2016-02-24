@@ -308,6 +308,8 @@ class BaseModel(object):
 
     __table_name__ = None
 
+    __table_name_case_sensitive__ = False
+
     __keyspace__ = None
 
     __discriminator_value__ = None
@@ -492,7 +494,10 @@ class BaseModel(object):
     def _raw_column_family_name(cls):
         if not cls._table_name:
             if cls.__table_name__:
-                cls._table_name = cls.__table_name__.lower()
+                if cls.__table_name_case_sensitive__:
+                    cls._table_name = cls.__table_name__
+                else:
+                    cls._table_name = cls.__table_name__.lower()
             else:
                 if cls._is_polymorphic and not cls._is_polymorphic_base:
                     cls._table_name = cls._polymorphic_base._raw_column_family_name()
