@@ -929,6 +929,11 @@ class Model(BaseModel):
     *Optional.* Sets the name of the CQL table for this model. If left blank, the table name will be the name of the model, with it's module name as it's prefix. Manually defined table names are not inherited.
     """
 
+    __table_name_case_sensitive__ = False
+    """
+    *Optional.* By default, __table_name__ is case insensitive. Set this to True if you want to preserve the case sensitivity.
+    """
+
     __keyspace__ = None
     """
     Sets the name of the keyspace used by this model.
